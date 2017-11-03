@@ -4,7 +4,7 @@ var ans = 0;
 const pi = 3.14;
 const e = 2.718;
 var brackets = 0;
-var checked = ['(', 'asin(', 'acos(', 'atan(', 'sin(', 'cos(', 'tan(', 'ln(', 'sqrt(', 'log('];
+var checked = ['(', 'asin(', 'acos(', 'atan(', 'sin(', 'cos(', 'tan(', 'ln(', 'sqrt(', 'lg('];
 
 function set(num) {
     var exp = document.getElementById("display");
@@ -117,8 +117,8 @@ function getResult(Exp1) {
 
 function calLn(res) {
     var index;
-    while (res.indexOf("ln(") !== -1) {
-        index = res.indexOf("ln(");
+    while (res.indexOf("lg(") !== -1) {
+        index = res.indexOf("lg(");
         index += 2;
         var count = 0;
         var string = "";
@@ -129,13 +129,13 @@ function calLn(res) {
                 count--;
             if (count === 0) {
                 string = res.substring(index + 1, i);
-                var sum = math.log(math.eval(string), e);
+                var sum = math.log(math.eval(string), 10);
                 if (res[index - 3] - '0'>=0 && res[index - 3] - '0' <=9) {
                     console.log("Hello");
-                    res = res.replace('ln(' + string + ')', "*" + sum.toString());
+                    res = res.replace('lg(' + string + ')', "*" + sum.toString());
                 }
                 else
-                    res = res.replace('ln(' + string + ')', sum.toString());
+                    res = res.replace('lg(' + string + ')', sum.toString());
                 console.log(res[index - 3]);
                 console.log(res);
                 console.log(sum);
@@ -165,6 +165,7 @@ function calculate() {
     Exp1 = check(Exp1);
     AnsExp.value = Exp1 + "=";
     Exp1 = calLn(Exp1);
+    Exp1 = Exp1.replace(/ln/g,'log');
     var result = getResult(Exp1);
     Exp.value = result;
     ans = result;
