@@ -5,17 +5,26 @@ const pi = 3.14;
 const e = 2.718;
 var brackets = 0;
 var checked = ['(', 'asin(', 'acos(', 'atan(', 'sin(', 'cos(', 'tan(', 'ln(', 'sqrt(', 'lg('];
+var operator = ['+','-','*','/','^','!','%'];
+var isCalculated = false;
 
 function set(num) {
     var exp = document.getElementById("display");
+	if(isCalculated == true)
+	{
+		if(operator.indexOf(num)< 0){
+			exp.value = '0';
+		}
+		isCalculated = false;
+	}
     if (checked.indexOf(num) !== -1) {
         if (brackets < 0) brackets = 0;
         brackets++;
     }
     if (num === ')')
         brackets--;
-    if (brackets >= 0) {
-        if (exp.value === '0')
+    if (brackets>=0) {
+        if (exp.value === '0'&& num!=='%')
             exp.value = num;
         else {
             exp.value += num;
@@ -169,6 +178,7 @@ function calculate() {
     var result = getResult(Exp1);
     Exp.value = result;
     ans = result;
+	isCalculated = true;
 }
 
 function ce() {
